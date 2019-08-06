@@ -1,0 +1,148 @@
+<div class="container-fluid background">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h1 class="texte-center text-light">App clima</h1>
+        </div>
+    </div>
+
+    <div *ngIf="!bandera1" class="row text-center m-5 p-5">
+        <div class="col-md-12">
+            <i class="fas fa-spinner fa-spin fa-10x color-spinner"></i>
+        </div>
+    </div>
+
+    <div *ngIf="bandera1" class="row text-center">
+        <div class="col-md-12">
+            <h1 class="text-light">{{climaActual['name']}}</h1>
+            <h1 class="text-light">{{climaActual.main['temp']}}°C</h1>
+            <img src="http://openweathermap.org/img/w/{{climaActual.weather[0].icon}}.png" width="100" height="100">
+        </div>
+    </div>
+
+    <div *ngIf="bandera2" class="row text-center">
+        <div *ngFor="let clima of climaFuturo" class="col-md-2">
+            <p class="text-light">{{clima.dt_txt | date:'medium'}}</p>
+            <p class="text-light">{{clima.main['temp']}}°C</p>
+            <img src="http://openweathermap.org/img/w/{{clima.weather[0].icon}}.png" width="70" height="70">
+        </div>
+    </div>
+</div>
+
+<div class="container pt-3">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <button (click)="suegerencias()" class="btn btn-outline-primary">Sugerencias</button>
+        </div>
+        <div class="col-md-6 text-center">
+            <a [routerLink]="['/comentarios']" class="btn btn-danger">Comentarios</a>
+        </div>
+    </div>
+
+    <!--Mañana-->
+    <div class="pt-3 pb-3">
+        <span [ngSwitch]="banderaDia">
+                <div *ngSwitchCase="'templado'" class="alert alert-success text-center" role="alert">
+                    <p>La temperatura promedio de la mañana es de: {{climaPromedioDia | number}} en un horario de 9 am a 12 pm </p>
+                    <p>usar prendas mucho más sencilla y ligeras, podríamos hablar de shorts, vestidos, camisas o blusas cortas</p>
+                </div>
+                <div *ngSwitchCase="'calido'" class="alert alert-danger text-center" role="alert">
+                        <p>La temperatura promedio de la mañana es de: {{climaPromedioDia | number}} en un horario de 9 am a 12 pm </p>
+                        <p>Viste ropa suelta de colores claros y de manga larga</p>
+                        <p>No realices actividades físicas intensas bajo el sol</p>
+                        <p>Toma agua simple, aunque no tengas sed</p>
+                        <p>Come alimentos frescos, frutas y verduras</p>
+                        <p>Permanece en la sombra y en lugares frescos</p>
+                        <p>Usa protector solar (mínimo F15)</p>
+                        <p>Utiliza lentes de sol, gorra o sombrero.</p>
+                    </div>
+                    <div *ngSwitchCase="'frio'" class="alert alert-info text-center" role="alert">
+                        <p>La temperatura promedio de la mañana es de: {{climaPromedioDia | number}} en un horario de 9 am a 12 pm </p>
+                        <p>Usar algun tipo de chamarra o sueter</p>
+                    </div>
+                    <div *ngSwitchCase="'frio extremo'" class="alert alert-info text-center" role="alert">
+                            <p>La temperatura promedio de la mañana es de: {{climaPromedioDia | number}} en un horario de 9 am a 12 pm </p>
+                            <p>Abrigarse adecuadamente, cubriendo boca y nariz para evitar aspirar el aire frio. Los cambios bruscos de temperatura pueden afectar el sistema respiratorio.</p>
+                            <p>Tener especial cuidado de niñas, niños y adultos mayores, así como de enfermos crónicos, porque son más vulnerables ante bajas temperaturas.</p>
+                            <p>Comer frutas y verduras ricas en Vitaminas A y C, beber abundantes líquidos.</p>
+                            <p>Evitar conducir o transitar por caminos resbaladizos ante la presencia de nieve, aguanieve o congelamiento de estos.</p>
+                        </div>
+         </span>
+
+
+        <!--Tarde-->
+        <div class="pt-3 pb-3">
+            <span [ngSwitch]="banderaTarde">
+                <div *ngSwitchCase="'templado'" class="alert alert-success text-center" role="alert">
+                    <p>La temperatura promedio de la tarde es de: {{climaPromedioTarde | number}} en un horario de 3 pm a 6 pm </p>
+                    <p>usar prendas mucho más sencilla y ligeras, podríamos hablar de shorts, vestidos, camisas o blusas cortas</p>
+                </div>
+                <div *ngSwitchCase="'calido'" class="alert alert-danger text-center" role="alert">
+                        <p>La temperatura promedio de la tarde es de: {{climaPromedioTarde | number}} en un horario de 3 am a 6 pm </p>
+                        <p>Viste ropa suelta de colores claros y de manga larga</p>
+                        <p>No realices actividades físicas intensas bajo el sol</p>
+                        <p>Toma agua simple, aunque no tengas sed</p>
+                        <p>Come alimentos frescos, frutas y verduras</p>
+                        <p>Permanece en la sombra y en lugares frescos</p>
+                        <p>Usa protector solar (mínimo F15)</p>
+                        <p>Utiliza lentes de sol, gorra o sombrero.</p>
+                    </div>
+                    <div *ngSwitchCase="'frio'" class="alert alert-info text-center" role="alert">
+                        <p>La temperatura promedio de la tarde es de: {{climaPromedioTarde | number}} en un horario de 9 am a 12 pm </p>
+                        <p>Usar algun tipo de chamarra o sueter</p>
+                    </div>
+                    <div *ngSwitchCase="'frio extremo'" class="alert alert-info text-center" role="alert">
+                            <p>La temperatura promedio de la tarde es de: {{climaPromedioTarde | number}} en un horario de 9 am a 12 pm </p>
+                            <p>Abrigarse adecuadamente, cubriendo boca y nariz para evitar aspirar el aire frio. Los cambios bruscos de temperatura pueden afectar el sistema respiratorio.</p>
+                            <p>Tener especial cuidado de niñas, niños y adultos mayores, así como de enfermos crónicos, porque son más vulnerables ante bajas temperaturas.</p>
+                            <p>Comer frutas y verduras ricas en Vitaminas A y C, beber abundantes líquidos.</p>
+                            <p>Evitar conducir o transitar por caminos resbaladizos ante la presencia de nieve, aguanieve o congelamiento de estos.</p>
+                    </div>
+         </span>
+        </div>
+
+
+
+        <div class="row p-5 justify-content-center">
+            <div class="col-md-12 text-center">
+                <h1 class="text-info">También puedes buscar tu ciudad</h1>
+                <hr class="bg-danger">
+            </div>
+            <div class="col-sm-12 p-5">
+                <form (ngSubmit)="buscarCiudda(forma)" #forma="ngForm">
+                    <div class="form-group row">
+                        <div class="col-sm-10 col-form-label col-form-label-sm">
+                            <input [(ngModel)]="ciudad" required name="ciudad" type="text" class="form-control form-control-sm" placeholder="Escribe tu ciudad">
+                        </div>
+                        <div class="col-sm-2">
+                            <button [disabled]="!forma.form.valid" class="btn btn-success">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="row text-center pt-3 justify-content-center">
+                <div class="col-md-12">
+                    <h1 class="text-dark">Lo que se esta utilizando</h1>
+                </div>
+            </div>
+            <div class="row text-center p-5">
+                <div class="col-md-4">
+                    <i class="fas fa-cloud fa-3x"></i>
+                    <h1>OpenWeatherMap</h1>
+                    <p>https://openweathermap.org/api</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-images fa-3x"></i>
+                    <h1>Pexels</h1>
+                    <p>https://www.pexels.com/</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-robot fa-3x"></i>
+                    <h1>Rapid api</h1>
+                    <p>https://rapidapi.com/</p>
+                </div>
+            </div>
+        </div>

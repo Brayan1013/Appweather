@@ -1,0 +1,94 @@
+<div *ngIf="!bandera && !error" class="container pt-5">
+    <div class="row text-center">
+        <div class="col">
+            <i class="fas fa-sync-alt fa-spin fa-10x"></i>
+        </div>
+    </div>
+</div>
+
+
+<!--Alerta-->
+<div *ngIf="error" class="container p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <div class="alert alert-danger" role="alert">
+                La ciudad que estas buscando no se ha encontrado
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="bandera && !error" class="container pt-5">
+    <div class="row pb-3">
+        <div class="col-md-6 text-left">
+            <a [routerLink]="['/home']" class="btn btn-warning">Regresar</a>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h1 class="text-danger">Clima para la ciudad: {{clima['name']}}</h1>
+            <hr class="bg-primary">
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Temperatura</th>
+                        <th scope="col">Humedad</th>
+                        <th scope="col">Presion</th>
+                        <th scope="col">Puesta de sol</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Icono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{clima['main'].temp}} C</td>
+                        <td>{{clima['main'].humidity}}</td>
+                        <td>{{clima['main'].pressure}}</td>
+                        <td>{{sunset}}</td>
+                        <td>{{clima['weather'][0].description}}</td>
+                        <td><img [src]="urlImagen" alt=""></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row text-center p-5">
+        <div class="col-md-12">
+            <button (click)="getClimaforecast()" class="btn btn-outline-success">Ver el clima de mañana</button>
+        </div>
+    </div>
+
+    <div *ngIf="mostrarMas" class="row text-center">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha y hora</th>
+                        <th scope="col">Temperatura</th>
+                        <th scope="col">Temperatura maxima</th>
+                        <th scope="col">Temperatura minima</th>
+                        <th scope="col">Humeda</th>
+                        <th scope="col">Icono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dia of climaForecast">
+                        <td>{{dia.dt_txt}}</td>
+                        <td>{{dia.main.temp}}</td>
+                        <td>{{dia.main.temp_max}}</td>
+                        <td>{{dia.main.temp_min}}</td>
+                        <td>{{dia.main.humidity}}</td>
+                        <td><img src="http://openweathermap.org/img/w/{{dia.weather[0].icon}}.png" alt=""></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

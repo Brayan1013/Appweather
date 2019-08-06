@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row text-center pt-3 pb-3">
+        <div class="col-md-12">
+            <h1 class="">Bienvenido a la sección de comentarios</h1>
+        </div>
+    </div>
+    <div class="container boxContenedor">
+        <div *ngFor="let comentario of comentarios" class="row justify-content-center pb-5">
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-header bg-dark">
+                        <img [src]="comentario.foto" height="60" width="60" class="rounded-circle" alt="">
+                        <p class="text-light">{{comentario.nombre}}</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{comentario.comentario}}</p>
+                        <p class="card-text"><small class="text-muted">{{comentario.fecha | date}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row p-5 justify-content-center">
+        <div class="col-md-6">
+            <div *ngIf="_comentarioService.afAuth.user | async as user; else showLogin">
+                <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+                <form class="pt-2" (ngSubmit)="comentarioNuevo(comentarioForm)" #comentarioForm=ngForm>
+                    <div class="form-group row justify-content-center">
+                        <div class="col-sm-8">
+                            <input required [(ngModel)]="nuevoComentario" name="nuevoComentario" type="text" class="form-control" id="inputEmail3">
+                        </div>
+                        <button [disabled]="!comentarioForm.form.valid" class="btn btn-outline-success">Comentar</button>
+                    </div>
+                </form>
+            </div>
+            <ng-template #showLogin>
+
+                <button class="btn btn-outline-primary" (click)="login()">Ingresar con facebook</button>
+            </ng-template>
+        </div>
+    </div>
+</div>

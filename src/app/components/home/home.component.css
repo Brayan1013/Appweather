@@ -1,0 +1,9 @@
+.background {
+    background-image: url("../../../assets/imagenes/Imagen2.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.color-spinner {
+    color: white;
+}
